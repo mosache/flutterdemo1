@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
@@ -32,9 +33,10 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
         body: Container(
+          decoration: BoxDecoration(color: Colors.grey),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: <Widget>[_getSwiper()],
+            children: <Widget>[_getSwiper(), _getBottomView()],
           ),
         ),
       ),
@@ -71,34 +73,81 @@ class _MainPageState extends State<MainPage> {
 
   ///Swiper
   Widget _getSwiper() {
+    ///SwiperItem
+    Widget _getSwiperItem(BuildContext ctx, int index) {
+      return Container(
+          decoration: BoxDecoration(color: Colors.white),
+          child: Padding(
+              padding: EdgeInsets.all(0),
+              child: ClipRRect(
+                child: Image(
+                    image: imgs[index],
+                    width: ScreenUtil.instance.setWidth(720),
+//                height: ScreenUtil.instance.setHeight(280),
+                    fit: BoxFit.fill),
+                borderRadius: BorderRadius.circular(8),
+              )));
+    }
+
     return Container(
+        decoration: BoxDecoration(color: Colors.white),
         height: ScreenUtil.instance.setHeight(280),
         child: Swiper(
           itemBuilder: (BuildContext ctx, int index) {
             return _getSwiperItem(ctx, index);
           },
           itemCount: 3,
-          pagination:SwiperPagination(),
+          pagination: SwiperPagination(),
           viewportFraction: 0.8,
           scale: 0.9,
         ));
   }
 
-  Widget _getSwiperItem(BuildContext ctx, int index) {
+  Widget _getBottomView() {
     return Container(
+        margin: EdgeInsets.only(top: ScreenUtil.instance.setHeight(10)),
         decoration: BoxDecoration(color: Colors.white),
-        child: Padding(
-          padding: EdgeInsets.all(0),
-          child: ClipRRect(
-            child: Image(
-                image: imgs[index],
-                width: ScreenUtil.instance.setWidth(720),
-//                height: ScreenUtil.instance.setHeight(280),
-                fit: BoxFit.fill
-            ),
-            borderRadius: BorderRadius.circular(8),
-          )
+        child: Column(
+          children: <Widget>[
+            Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: Colors.black12,
+                            width: 0.5,
+                            style: BorderStyle.solid))),
+                padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      '管理公告',
+                      style: TextStyle(
+                          fontSize: ScreenUtil.instance.setSp(28),
+                          color: Colors.black),
+                    )
+                  ],
+                )),
 
+                Container(
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Column(
+                    children: <Widget>[
+                      Padding(
+                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                        child: Row(
+                          children: <Widget>[
+                            Image.asset('assets/pos.png'),
+                            Expanded(
+                              child: Text('zhng sna sddwddwdwd'),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  )
+                  ,
+                )
+          ],
         ));
   }
 }
