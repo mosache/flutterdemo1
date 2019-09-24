@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo1/src/utils/URLPath.dart';
 import 'BasePage.dart';
 import 'package:dio/dio.dart';
-import '../../views/MyAppBar.dart';
 
 class FirstPage extends BasePage {
   @override
@@ -17,20 +16,68 @@ class FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(backgroundColor: Colors.white,height: 44,titleView: _getTitleView("hehe"),),
-    );
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'hehe',
+                  style: TextStyle(fontSize: 24, color: Colors.black),
+                )
+              ],
+            ),
+          ),
+          bottomOpacity: 0,
+        ),
+        body: Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: Container(
+              padding: EdgeInsets.all(0),
+              child: Container(
+                  decoration: BoxDecoration(color: Colors.white),
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        SingleChildScrollView(
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'hehe',
+                                      labelStyle: TextStyle(
+                                          fontSize: 22, color: Colors.yellow),
+                                      alignLabelWithHint: true,
+                                    ),
+                                    cursorColor: Colors.green,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+            )));
   }
 
   @override
   void initState() {
     super.initState();
-    _Login().then((data) {
+    _login().then((data) {
       var model = json.decode(data);
       print(model.runtimeType);
     });
-  }
+  }}
 
-  Future _Login() async {
+  Future _login() async {
     try {
       var dio = Dio();
       Response response;
@@ -60,4 +107,4 @@ class FirstPageState extends State<FirstPage> {
       ),
     );
   }
-}
+

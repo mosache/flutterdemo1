@@ -19,6 +19,6 @@ class SecondPageState extends State<SecondPage>{
               child: Text('SecondPage',
                   style: TextStyle(fontSize: 18, color: Colors.black)),
             ))
-    );;
+    );
   }
 }
