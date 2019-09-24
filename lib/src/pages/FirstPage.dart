@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo1/src/utils/URLPath.dart';
 import 'BasePage.dart';
 import 'package:dio/dio.dart';
-import '../../views/MyAppBar.dart';
 
 class FirstPage extends BasePage {
   @override
