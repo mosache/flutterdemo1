@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo1/src/utils/URLPath.dart';
 import 'BasePage.dart';
 import 'package:dio/dio.dart';
+
 class FirstPage extends BasePage {
   @override
   State<StatefulWidget> getState() {
@@ -15,59 +16,82 @@ class FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body:Container(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          title: Center(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  'hehe',
+                  style: TextStyle(fontSize: 24, color: Colors.black),
+                )
+              ],
+            ),
+          ),
+          bottomOpacity: 0,
+        ),
+        body: Container(
             decoration: BoxDecoration(color: Colors.white),
             child: Container(
-              padding: EdgeInsets.all(20),
+              padding: EdgeInsets.all(0),
               child: Container(
-                  decoration: BoxDecoration(color: Colors.yellow),
+                  decoration: BoxDecoration(color: Colors.white),
                   child: Center(
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        Text(
-                          'FirstPage',
-                          style: TextStyle(
-                              fontSize: 40, decoration: TextDecoration.none),
-                        ),
-                        RaisedButton(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(12))),
-                          color: Colors.amberAccent,
-                          highlightColor: Colors.grey,
-                          child: Text(
-                            'Next',
-                            style: TextStyle(fontSize: 22),
+                        SingleChildScrollView(
+                          child: Container(
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: TextField(
+                                    decoration: InputDecoration(
+                                      labelText: 'hehe',
+                                      labelStyle: TextStyle(
+                                          fontSize: 22, color: Colors.yellow),
+                                      alignLabelWithHint: true,
+                                    ),
+                                    cursorColor: Colors.green,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
-                          onPressed: () {
-                            Navigator.pushNamed(context,'/second');
-                          },
                         )
                       ],
                     ),
                   )),
-            ))
-    );;
+            )));
+    ;
   }
 
   @override
   void initState() {
     super.initState();
-    _Login().then((data){
+    _login().then((data) {
       var model = json.decode(data);
       print(model.runtimeType);
     });
   }
 
-  Future _Login() async {
+  Future _login() async {
     try {
       var dio = Dio();
       Response response;
-      response = await dio.post(URLPath['login'],queryParameters:{'user_name':'15000095010','password':'96e79218965eb72c92a549dd5a330112'.toUpperCase(),'equip_no':'2','type':'2','phone_model':'2'});
+      response = await dio.post(URLPath['login'], queryParameters: {
+        'user_name': '15000095010',
+        'password': '96e79218965eb72c92a549dd5a330112'.toUpperCase(),
+        'equip_no': '2',
+        'type': '2',
+        'phone_model': '2'
+      });
       return response.data;
-    }catch (e){
+    } catch (e) {
       print(e);
     }
   }
 }
-

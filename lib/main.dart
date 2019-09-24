@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import './pages/FirstPage.dart';
-import './pages/SecondPage.dart';
-import './utils/URLPath.dart';
+import 'src/pages/FirstPage.dart';
+import 'src/pages/SecondPage.dart';
 
 void main() => runApp(MyApp());
 
