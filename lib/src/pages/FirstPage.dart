@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterdemo1/src/utils/URLPath.dart';
 import 'BasePage.dart';
 import 'package:dio/dio.dart';
+import '../../views/MyAppBar.dart';
 
 class FirstPage extends BasePage {
   @override
@@ -66,7 +67,6 @@ class FirstPageState extends State<FirstPage> {
                     ),
                   )),
             )));
-    ;
   }
 
   @override
@@ -76,7 +76,7 @@ class FirstPageState extends State<FirstPage> {
       var model = json.decode(data);
       print(model.runtimeType);
     });
-  }
+  }}
 
   Future _login() async {
     try {
@@ -94,4 +94,18 @@ class FirstPageState extends State<FirstPage> {
       print(e);
     }
   }
-}
+
+  //自定义titleView
+  Widget _getTitleView(String title) {
+    return Center(
+      child: Container(
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Text(title,style: TextStyle(fontSize: 24,color: Colors.black,fontWeight: FontWeight.bold),)
+          ],
+        ),
+      ),
+    );
+  }
+
