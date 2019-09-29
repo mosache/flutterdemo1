@@ -108,7 +108,7 @@ class _MainPageState extends State<MainPage> {
                 scale: 0.9,
               ),
             ),
-            MyPagination(paddingTop: ScreenUtil.instance.setHeight(20),)
+            MyPagination(paddingTop: ScreenUtil.instance.setHeight(20),paddingLeft: ScreenUtil.instance.setWidth(20),paddingRight: ScreenUtil.instance.setWidth(20),paddingBottom: ScreenUtil.instance.setHeight(20),)
           ],
         ));
   }

@@ -34,8 +34,9 @@ class _MyPaginationState extends State<MyPagination> {
           child: Row(
             children: <Widget>[
               Container(
-                width: ScreenUtil.instance.setWidth(720),
+                width: ScreenUtil.instance.setWidth(720) - widget.paddingLeft - widget.paddingRight,
                 height: widget.pageHeight,
+                child: CustomPaint(painter: _PagePainter(),),
               )
             ],
           ),
@@ -47,7 +48,13 @@ class _MyPaginationState extends State<MyPagination> {
 class _PagePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+    ..color = Colors.blue
+    ..style = PaintingStyle.fill
+    ..strokeWidth = 2;
 
+    ///先画中间的方框
+    canvas.drawRect(Rect.fromCenter(center: Offset(size.width / 2, size.height / 2),width: 10,height: 3), paint);
   }
 
   @override
