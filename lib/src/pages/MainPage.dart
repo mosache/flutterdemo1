@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:flutterdemo1/src/components/MyPagination.dart';
+import 'package:flutterdemo1/src/components/MyPaintView.dart';
+import 'package:flutterdemo1/src/components/PageIndicator.dart';
+import 'package:flutterdemo1/src/utils/AppUtils.dart';
 
 class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
@@ -15,7 +19,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(width: 750, height: 1334)..init(context);
+    ScreenUtil.instance = ScreenUtil(width: 720, height: 1280)..init(context);
     return Container(
       child: Scaffold(
         appBar: AppBar(
@@ -33,7 +37,7 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
         body: Container(
-          decoration: BoxDecoration(color: Colors.grey),
+          decoration: BoxDecoration(color: AppUtils.hexToColor('#f5f5f5')),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[_getSwiper(), _getBottomView()],
@@ -81,25 +85,31 @@ class _MainPageState extends State<MainPage> {
               padding: EdgeInsets.all(0),
               child: ClipRRect(
                 child: Image(
-                    image: imgs[index],
-                    width: ScreenUtil.instance.setWidth(720),
-//                height: ScreenUtil.instance.setHeight(280),
-                    fit: BoxFit.fill),
+                  image: imgs[index],
+                  fit: BoxFit.cover,
+                ),
                 borderRadius: BorderRadius.circular(8),
               )));
     }
 
     return Container(
         decoration: BoxDecoration(color: Colors.white),
-        height: ScreenUtil.instance.setHeight(280),
-        child: Swiper(
-          itemBuilder: (BuildContext ctx, int index) {
-            return _getSwiperItem(ctx, index);
-          },
-          itemCount: 3,
-          pagination: SwiperPagination(),
-          viewportFraction: 0.8,
-          scale: 0.9,
+        child: Column(
+          children: <Widget>[
+            Container(
+              height: ScreenUtil.instance.setWidth(300),
+              child: Swiper(
+                itemBuilder: (BuildContext ctx, int index) {
+                  return _getSwiperItem(ctx, index);
+                },
+                itemCount: 3,
+                controller: SwiperController(),
+                viewportFraction: 0.8,
+                scale: 0.9,
+              ),
+            ),
+            MyPagination(paddingTop: ScreenUtil.instance.setHeight(20),)
+          ],
         ));
   }
 
@@ -127,26 +137,29 @@ class _MainPageState extends State<MainPage> {
                     )
                   ],
                 )),
-
-                Container(
-                  decoration: BoxDecoration(color: Colors.white),
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                        child: Row(
-                          children: <Widget>[
-                            Image.asset('assets/pos.png'),
-                            Expanded(
-                              child: Text('zhng sna sddwddwdwd'),
-                            )
-                          ],
+            Container(
+              decoration: BoxDecoration(color: Colors.white),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                    child: Row(
+                      children: <Widget>[
+                        Image.asset('assets/pos.png'),
+                        Expanded(
+                          child: Text('zhng sna sddwddwdwd'),
                         ),
-                      )
-                    ],
+                        Container(
+                          width: 100,
+                          height: 100,
+                          child: MyPaintView(),
+                        ),
+                      ],
+                    ),
                   )
-                  ,
-                )
+                ],
+              ),
+            )
           ],
         ));
   }
